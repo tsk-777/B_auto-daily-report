@@ -18,7 +18,7 @@ const DATA={"categories": {"Cal": ["RF Generator Cal", "APC Calibration", "DPC C
 const $=id=>document.getElementById(id), KEY='osf-report-v1';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function blankJob(){return {equipment:'',area:'O3',actual:'',delay:'',delayReason:'',major:'분해 조립',minor:'',cb:'',call:'',cover:'',escCheck:'',issue:'',steps:'',parts:'',coating:'',cleaning:'',consumable:''}}
-function fresh(){let j=blankJob();j.major='분해 조립';j.minor='Top/Bottom Part 분해 조립';return {kind:'OF',start:'09:00',end:'',timePresetApplied:true,tbm:'김태현',worker:'김태수',jobs:[j],active:0,manualText:null,extraWorkers:[]}}
+function fresh(){let j=blankJob();j.major='분해 조립';j.minor='Top/Bottom Part 분해 조립';return {kind:'OF',start:'09:00',end:'',timePresetApplied:true,tbm:'홍길동',worker:'김태수',jobs:[j],active:0,manualText:null,extraWorkers:[]}}
 let state=fresh();try{let old=JSON.parse(localStorage.getItem(KEY));if(old&&Array.isArray(old.jobs)&&old.jobs.length&&old.jobs.every(j=>j&&typeof j==='object')){state={...fresh(),...old,jobs:old.jobs.map(j=>({...blankJob(),...j}))};state.active=Math.min(Math.max(0,Number(state.active)||0),state.jobs.length-1)}}catch(e){}
 let toastTimer;function toast(t){$('toast').textContent=t;$('toast').classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),3200)}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));$('saveStatus').textContent='이 기기에 자동 저장됨'}catch(e){$('saveStatus').textContent='자동 저장 불가 · TXT로 따로 저장해 주세요'}}
